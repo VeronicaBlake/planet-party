@@ -3,14 +3,14 @@ import { galaxiesService } from "../services/GalaxiesService";
 
 export class GalaxiesController extends BaseController {
     constructor() {
-        super("api/galaxies");
+        super("api/galaxies");// you want moons to ge in a seperate collection of things by themselves. 
         this.router
             .get("", this.getAll)
             // .get("/:id/stars", this.getStarsByGalaxyId)
             // .get("/:id/planets", this.getPlanetsByGalaxyId)
             .post("", this.create)
             .put("/:id", this.edit)
-            .delete("/:id", this.delete) //REVIEW cascading delete? Orphan data?
+            .delete("/:id", this.delete)
     }
     /**
      * Sends found galaxies to a client by request
@@ -20,7 +20,7 @@ export class GalaxiesController extends BaseController {
      */
     async getAll(req, res, next) {
         try {
-            const galaxies = await galaxiesService.find(req.query) //REVIEW req.query? this is so we can search specifics, yea?
+            const galaxies = await galaxiesService.find(req.query) //REVIEW this lets queries be appended to the url some mongoose magic. 
             return res.send(galaxies); //REVIEW res.send?
         } catch (error) {
             next(error);
